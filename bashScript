@@ -1,0 +1,38 @@
+
+COUNTER=0
+echo “Running Script” > ~/Documents/Pictures/Wallpapers/Strips/.log
+
+DATE=`date +%d`
+MONTH=`date +%m`
+YEAR=`date +%Y`
+RDATE=$YEAR/$MONTH/$DATE;
+#echo $RDATE
+
+URL=$(curl -s http://www.gocomics.com/calvinandhobbes/$RDATE | grep "feature_item" | sed -n '/<img/s/.*src="\([^"]*\)".*/\1/p')
+echo $RDATE >> ~/Documents/Pictures/Wallpapers/Strips/.log
+curl -so ~/Documents/Pictures/Wallpapers/Strips/strip-Today.jpg $URL
+
+while [  $COUNTER -lt 10 ]; do
+	#echo The counter is $COUNTER
+	let COUNTER=COUNTER+1 
+	YEAR=$((RANDOM%11+1985));
+	MONTH=$((RANDOM%12+1));
+	if [ $YEAR -eq 1985 ];
+	then
+		MONTH=$((RANDOM%2+11));
+	fi
+	DATE=$((RANDOM%31+1));
+	if [ $YEAR -eq 1985 ];
+	then
+		if [ $MONTH -eq 11 ];
+		then
+			DATE=$((RANDOM%12+19));
+		fi
+	fi
+	RDATE=$YEAR/$MONTH/$DATE;
+	#echo $RDATE
+	URL=$(curl -s http://www.gocomics.com/calvinandhobbes/$RDATE | grep "feature_item" | sed -n '/<img/s/.*src="\([^"]*\)".*/\1/p')
+	echo $RDATE >> ~/Documents/Pictures/Wallpapers/Strips/.log
+	curl -so ~/Documents/Pictures/Wallpapers/Strips/strip-$COUNTER.jpg $URL
+done
+
