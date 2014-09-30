@@ -8,4 +8,4 @@ A bash script to download random Calvin and Hobbes comic strips from www.gocomic
 
 The full installation instructions and a small tutorial are available on my website
 
-http://kdheepak.com/mac-osx/
+http://kdheepak.com/projects/mac-osx/
